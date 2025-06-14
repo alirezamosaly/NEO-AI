@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "SmartCopy",
+  "version": "1.2",
+  "description": "KI-gestütztes Tool zum Erkennen, Kopieren und Einfügen von Text und Bildern mit einem Klick. DSGVO-konform und sicher.",
+  "permissions": [
+    "clipboardWrite",
+    "clipboardRead",
+    "contextMenus",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["tesseract.min.js", "content.js"],
+      "css": ["content.css"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.svg",
+      "48": "icons/icon48.svg",
+      "128": "icons/icon128.svg"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.svg",
+    "48": "icons/icon48.svg",
+    "128": "icons/icon128.svg"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; default-src 'self'"
+  },
+  "minimum_chrome_version": "88",
+  "author": "SmartCopy Team",
+  "homepage_url": "https://smartcopy.example.com",
+  "offline_enabled": true,
+  "incognito": "split"
+}

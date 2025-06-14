@@ -1,0 +1,117 @@
+# SmartCopy Entwicklerhandbuch
+
+## 1. Einführung
+SmartCopy ist eine KI-gestützte Chrome-Erweiterung, die den Workflow von Entwicklern, Designern und anderen Nutzern optimiert, indem sie Text und Bilder mit einem Klick erkennt, kopiert und einfügt. Sie verwendet Tesseract.js für clientseitiges OCR und bietet ein hochwertiges, modernes Design basierend auf Material Design 3 Expressive, inspiriert von Google und Apple. Das Plugin ist für Anfänger bis Fortgeschrittene konzipiert und entspricht EU- und deutschen Sicherheitsstandards wie GDPR.
+
+## 2. Funktionen
+- **Textkopieren**: Kopiert ausgewählten Text (Code oder normaler Text) direkt in die Zwischenablage.
+- **Bild-OCR**: Extrahiert Text aus Bildern mittels Tesseract.js und kopiert ihn in die Zwischenablage.
+- **Ein-Klick-Bedienung**: Rechtsklick auf Text oder Bilder mit "SmartCopy"-Option im Kontextmenü.
+- **Mehrsprachige Unterstützung**: OCR für Englisch, Deutsch, Französisch, Spanisch, Italienisch, Portugiesisch.
+- **Einfügen-Funktion**: Ermöglicht das Einfügen von kopiertem Text oder das manuelle Hinzufügen von Text.
+- **Modernes Design**: Minimalistisches UI mit Roboto-Schrift, Material-Icons und flüssigen Animationen.
+- **Benachrichtigungen**: Feedback für Benutzeraktionen mit animierten Hinweisen.
+
+## 3. Technologie-Stack
+- **Frontend**: HTML, CSS, JavaScript für die Erweiterungslogik und Benutzeroberfläche.
+- **KI-Komponente**: Tesseract.js (Version 4.x) für clientseitiges OCR.
+- **Design**: Material Design 3 Expressive, Roboto-Schrift, Material-Icons, Light-/Dark-Mode-Unterstützung.
+- **Sicherheit**: Secure SDLC, lokale Datenverarbeitung, minimale Berechtigungen.
+
+## 4. Dateistruktur
+- **manifest.json**: Konfigurationsdatei der Chrome-Erweiterung.
+- **background.js**: Verwaltet Kontextmenüs und Hintergrundaufgaben.
+- **content.js**: Interagiert mit Webseiten, kopiert Text und führt OCR durch.
+- **content.css**: Stil für Benachrichtigungen auf Webseiten.
+- **popup.html**: Benutzeroberfläche für Einstellungen und Text-Einfügen.
+- **popup.js**: Logik für das Popup, einschließlich Spracheinstellungen und Zwischenablage-Handling.
+- **tesseract.min.js**: OCR-Bibliothek (separat herunterladen: https://github.com/naptha/tesseract.js).
+- **icon16.png, icon48.png, icon128.png**: Symbole für die Erweiterung (selbst erstellen).
+
+## 5. Installation
+1. **Dateien herunterladen**: Kopieren Sie alle Dateien in ein Verzeichnis.
+2. **Tesseract.js hinzufügen**: Laden Sie `tesseract.min.js` von https://github.com/naptha/tesseract.js (Version 4.x) und speichern Sie es im Verzeichnis.
+3. **Symbole erstellen**: Erstellen Sie PNG-Symbole (16x16, 48x48, 128x128 Pixel) mit einem klaren, minimalistischen Design.
+4. **Erweiterung laden**:
+   - Öffnen Sie Chrome und navigieren Sie zu `chrome://extensions/`.
+   - Aktivieren Sie den "Entwicklermodus".
+   - Klicken Sie auf "Entpackte Erweiterung laden" und wählen Sie das Verzeichnis.
+5. **Testen**: Überprüfen Sie die Funktionalität auf einer Webseite (Text kopieren, Bild-OCR, Sprache ändern).
+
+## 6. Nutzung
+1. **Text kopieren**:
+   - Markieren Sie Text auf einer Webseite.
+   - Rechtsklick und "SmartCopy" auswählen.
+   - Der Text wird in die Zwischenablage kopiert, mit einer Benachrichtigung.
+2. **Text aus Bild extrahieren**:
+   - Rechtsklick auf ein Bild und "SmartCopy" auswählen.
+   - OCR wird durchgeführt, und der extrahierte Text wird kopiert.
+3. **Sprache ändern**:
+   - Öffnen Sie das Popup über das Erweiterungssymbol.
+   - Wählen Sie die OCR-Sprache aus der Dropdown-Liste.
+4. **Text einfügen**:
+   - Öffnen Sie das Popup.
+   - Fügen Sie Text manuell ins Textfeld ein oder klicken Sie auf "Kopierten Inhalt einfügen", um Zwischenablage-Inhalte anzuzeigen.
+5. **Feedback**: Benachrichtigungen zeigen Erfolg oder Fehler bei Aktionen an.
+
+## 7. Entwicklung
+### 7.1. Anpassen der Benutzeroberfläche
+- **Dateien**: Bearbeiten Sie `popup.html` und inline-CSS für das Design.
+- **Styling**: Verwenden Sie Material Design 3 Expressive (https://m3.material.io/) für Farben, Typografie und Animationen.
+- **Animationen**: Implementieren Sie zusätzliche Animationen mit CSS oder Framer Motion (https://www.framer.com/motion/) für komplexere Effekte.
+- **Symbole**: Verwenden Sie Material-Icons (https://fonts.google.com/icons) mit `material-icons-outlined`.
+
+### 7.2. Erweitern der Logik
+- **Textkopieren**: Passen Sie `content.js` an, um z. B. Formatierungen zu erhalten.
+- **OCR**: Integrieren Sie weitere Tesseract.js-Funktionen (z. B. Bildvorverarbeitung) in `content.js`.
+- **Einfügen**: Erweitern Sie `popup.js` für komplexere Zwischenablage-Funktionen (z. B. Verlauf).
+
+### 7.3. Neue Funktionen
+- **Formatierungserkennung**: Erweitern Sie `content.js`, um Markdown oder HTML zu erkennen.
+- **Sprachmodelle**: Integrieren Sie KI-Modelle für Textverbesserung (z. B. Grammatikkorrektur).
+- **Accessibility**: Fügen Sie ARIA-Labels in `popup.html` für Barrierefreiheit hinzu.
+
+## 8. Sicherheitsaspekte
+- **Lokale Verarbeitung**: Alle Daten (Text, OCR) werden clientseitig verarbeitet, keine Serverübertragung.
+- **Berechtigungen**: Minimale Berechtigungen (`clipboardWrite`, `clipboardRead`, `contextMenus`, `storage`).
+- **Datenschutz**: Entspricht GDPR und Cyber Resilience Act durch lokale Speicherung von Einstellungen.
+- **Sicherer Code**: Vermeidung von unsicheren Funktionen (z. B. `eval`), regelmäßige Code-Reviews.
+
+## 9. Internationalisierung
+- **Aktuelle Sprachen**: Englisch, Deutsch, Französisch, Spanisch, Italienisch, Portugiesisch.
+- **Erweiterung**:
+  - Fügen Sie neue `<option>`-Elemente in `popup.html` hinzu (z. B. `<option value="jpn">Japanisch</option>`).
+  - Laden Sie entsprechende Tesseract-Daten von https://github.com/tesseract-ocr/tessdata.
+  - Testen Sie die OCR-Genauigkeit für neue Sprachen.
+
+## 10. Design
+- **Farbschema**: Primärfarbe (#1a73e8), Akzentfarben (#dadce0, #5f6368), Fehlerfarbe (#d32f2f).
+- **Typografie**: Roboto-Schrift (400, 500, 700) für klare Lesbarkeit.
+- **Icons**: Material-Icons-Outlined für ein modernes, leichtes Erscheinungsbild.
+- **Animationen**: Flüssige Übergänge für Buttons, Fokus und Benachrichtigungen (CSS `@keyframes`).
+- **Light/Dark-Mode**: Automatische Anpassung mit `@media (prefers-color-scheme: dark)`.
+- **Responsivität**: Optimiert für Chrome-Erweiterungs-Popup (260px Breite).
+
+## 11. Fehlerbehandlung
+- **OCR-Fehler**: Benachrichtigungen in `content.js` für fehlerhafte Bilder oder Sprachen.
+- **Zwischenablage**: Fehlerbehandlung in `popup.js` für Zugriffsprobleme.
+- **Debugging**: Verwenden Sie Chrome DevTools (`chrome://extensions/`) für Logs.
+
+## 12. Weiterentwicklung
+- **Agile Methodik**: Iterative Entwicklung mit 2-Wochen-Sprints für neue Features.
+- **Feedback**: Nutzen Sie Nutzerfeedback, um Funktionen wie Textformatierung oder OCR-Genauigkeit zu verbessern.
+- **Tools**: Integrieren Sie Framer Motion für komplexere Animationen oder WebAssembly für schnellere OCR.
+- **Testing**: Unit-Tests für `content.js` und `popup.js` mit Jest (optional).
+
+## 13. Ressourcen
+- **Tesseract.js**: https://github.com/naptha/tesseract.js
+- **Material Design 3**: https://m3.material.io/
+- **Material-Icons**: https://fonts.google.com/icons
+- **Chrome Extensions**: https://developer.chrome.com/docs/extensions/
+- **Framer Motion**: https://www.framer.com/motion/ (für zukünftige Animationen)
+
+## 14. Kontakt
+Für Fragen oder Beiträge, kontaktieren Sie das Entwicklerteam über die Projekt-Repository (falls eingerichtet) oder erstellen Sie ein Issue in der Chrome-Erweiterungsdokumentation.
+
+## 15. Lizenz
+Das Plugin ist unter der MIT-Lizenz veröffentlicht. Stellen Sie sicher, dass Tesseract.js und andere Bibliotheken deren Lizenzbedingungen einhalten.
